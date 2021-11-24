@@ -4,4 +4,4 @@ Grupo:\
 Augusto Caldeira\
 Diogo Vinícius\
 Gabriel Mendes\
-Thomás Mayrink\
+Thomás Mayrink
