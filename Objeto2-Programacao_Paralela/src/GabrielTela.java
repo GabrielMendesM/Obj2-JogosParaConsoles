@@ -7,8 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.WindowConstants;
 
-public class Tela extends JFrame {
-    public Tela() {
+public class GabrielTela extends JFrame {
+    public GabrielTela() {
         //PEGO A RESOLUÇÃO DA TELA DO USUÁRIO
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         final double RES_LARGURA = screenSize.getWidth();
