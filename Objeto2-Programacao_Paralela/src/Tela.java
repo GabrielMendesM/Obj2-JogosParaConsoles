@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.ActionEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
