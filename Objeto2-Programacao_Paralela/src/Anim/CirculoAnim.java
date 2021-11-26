@@ -6,21 +6,37 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import javax.imageio.ImageIO;
 
 public class CirculoAnim extends JPanel {
     private int posX, posY;
     private final int tamanho = 20;
     private final int velX = 1;
     private Timer timer;
+    private BufferedImage carro1;
+    private JLabel carroLabel;
 
     public CirculoAnim() {
-        timer = new Timer(50, new MoveListener());
+        timer = new Timer(10, new MoveListener());
         posX = 0;
         posY = 100;
-    }    
+        try {
+            carro1 = ImageIO.read(this.getClass().getResource("../img/carro1.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        carroLabel = new JLabel(new ImageIcon(carro1));
+
+        add(carroLabel);
+    }
     
     public void paintComponent (Graphics g) {
         super.paintComponent(g);
@@ -44,6 +60,5 @@ public class CirculoAnim extends JPanel {
                 repaint();    
             }
         }
-
     }
 }
