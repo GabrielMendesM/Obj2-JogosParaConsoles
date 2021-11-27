@@ -5,7 +5,7 @@ import javax.swing.WindowConstants;
 
 public class GabrielCarroFrame extends JFrame {
     static final int MOVE_DELAY = 16;
-    static final int MAX_CARROS = 4;
+    static final int MAX_CARROS = 5;
     
     GabrielCarroPanel container = new GabrielCarroPanel();
 
@@ -21,7 +21,7 @@ public class GabrielCarroFrame extends JFrame {
         container.addFundo();
 
         for (int i = 0; i < MAX_CARROS; i++) {
-            container.addCarro(i, 0, (i * 80) + 160);
+            container.addCarro(i, 0, (i * 80) + 120);
         }
         pack();
 
