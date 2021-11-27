@@ -1,50 +1,25 @@
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Graphics;
-
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.Timer;
 
-public class GabrielCarro extends JPanel implements Runnable {
-    private int aux = 0;
-    private ImageIcon carro;
-    private int posX, posY;
-    private final int posLinhaChegada;
-    private int velX;
-    private Timer timer;
+public class GabrielCarro extends GabrielGameObject {
+    private final int posChegada;
+    private final String ID;
+    private boolean chegou = false;
 
-    public GabrielCarro(int telaLargura, int telaAltura) {
-        timer = new Timer(1, new MoverListener());
-
-        carro = new ImageIcon(getClass().getResource("./img/carro1.png"));
-        posX = 0;
-        posY = (telaAltura / 2) - (carro.getIconHeight() / 2);
-        velX = 10;
-
-        posLinhaChegada = telaLargura - (carro.getIconWidth() * 2);
-    }
-
-    public void paintComponent (Graphics g) {
-        super.paintComponent(g);
-        carro.paintIcon(this, g, posX, posY);
-
-        timer.start();
-    }
-
-    private class MoverListener implements ActionListener {
-        @Override
-        public void actionPerformed(ActionEvent e) {
-            if (posX <= posLinhaChegada) {
-                posX += velX;
-                revalidate();
-                repaint();    
-            }
-        }
+    public GabrielCarro(int posChegada, int id, int posX, int posY, JPanel panel) {
+        super(posX, posY, panel, "./img/carro" + id + ".png");
+        this.posChegada = posChegada;
+        this.ID = "Carro " + id;
     }
 
     @Override
-    public void run() {
-        System.out.println("runnable " + aux++);
+    public void mover(int velMin, int velMax) {
+        super.mover(velMin, velMax);
+
+        if (posX <= posChegada) {
+            posX += vel;
+        } else if (!chegou) {
+            chegou = true;
+            System.out.println(ID + " chegou!");
+        }
     }
 }
