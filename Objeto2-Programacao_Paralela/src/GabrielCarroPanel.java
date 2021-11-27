@@ -31,13 +31,13 @@ public class GabrielCarroPanel extends JPanel implements ActionListener {
     }
 
     public void addCarro(int id, int posX, int posY) {
-        gameObjects.add(new GabrielCarro(780, id, posX, posY, this));
+        gameObjects.add(new GabrielCarro(800, id, posX, posY, this));
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         for (GabrielGameObject go : gameObjects) {
-            go.mover(4, 8);
+            go.mover(10, 15);
         }
         repaint();
     }
