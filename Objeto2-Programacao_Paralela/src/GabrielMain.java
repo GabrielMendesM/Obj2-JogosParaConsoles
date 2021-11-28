@@ -2,7 +2,8 @@
 
 public class GabrielMain {
     public GabrielMain() {
-        new GabrielCarroFrame().setVisible(true);
+        new GabrielParaleloFrame().comecar();
+        //new GabrielCarroFrame().setVisible(true);
         //SwingUtilities.invokeLater(() -> new GabrielCarroFrame().setVisible(true));
     }
 }

@@ -2,20 +2,20 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.swing.JPanel;
 
-public class GabrielCarro extends GabrielGameObject {
+public class GabrielParaleloCarro extends GabrielParaleloGameObject implements Runnable {
     private final int posChegada;
     private final String ID;
     private boolean chegou = false;
 
-    public GabrielCarro(int posChegada, int id, int posX, int posY, JPanel panel) {
-        super(posX, posY, panel, "./img/carro" + id + ".png");
+    public GabrielParaleloCarro(int posChegada, int id, int posX, int posY, int velMin, int velMax, JPanel panel) {
+        super(posX, posY, velMin, velMax, panel, "./img/carro" + ThreadLocalRandom.current().nextInt(0,10) + ".png");
         this.posChegada = posChegada;
         this.ID = "Carro_0" + id;
     }
 
     @Override
-    public void mover(int velMin, int velMax) {
-        super.mover(velMin, velMax);
+    public void mover() {
+        super.mover();
 
         if (posX <= posChegada) {
             int posAnterior = posX;
@@ -24,6 +24,14 @@ public class GabrielCarro extends GabrielGameObject {
         } else if (!chegou) {
             chegou = true;
             System.out.println("=========================\n     "+ ID + " chegou!\n=========================");
+        }
+    }
+
+    @Override
+    public void run() {
+        // TODO Auto-generated method stub
+        while (GabrielParaleloFrame.isRodando) {
+            mover();
         }
     }
 }
