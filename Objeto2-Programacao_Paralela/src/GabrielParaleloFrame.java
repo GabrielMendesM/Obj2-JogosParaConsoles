@@ -5,50 +5,47 @@ import javax.swing.JFrame;
 import javax.swing.Timer;
 import javax.swing.WindowConstants;
 
-public class GabrielParaleloFrame extends JFrame implements Runnable {
-    public static final int THREAD_SLEEP = 100;
+public class GabrielParaleloFrame extends JFrame {
     private static final int MAX_CARROS = 5;
 
-    public static boolean isRodando;
-    private Thread gameLoop = null;
-    private Thread[] carros = new Thread[MAX_CARROS];
-    private GabrielParaleloPanel container = new GabrielParaleloPanel();
+    private static boolean isRodando;
+    private GabrielParaleloCarro[] carros = new GabrielParaleloCarro[MAX_CARROS];
+    private GabrielParaleloPanel container;
 
     public GabrielParaleloFrame() {
         super("Objeto 2");
     }
 
     public void comecar() {
-        setPreferredSize(new Dimension(815, 639));
+        setPreferredSize(new Dimension(865, 639));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
         setVisible(true);
+
+        for (int i = 0; i < MAX_CARROS; i++) {
+            carros[i] = new GabrielParaleloCarro(800, i + 1, 0, (i * 80) + 120, 10, 15, container, getGraphics());
+        }
+
+        container = new GabrielParaleloPanel(carros);
+
         getContentPane().add(container);
         
         container.addFundo();
 
-        for (int i = 0; i < MAX_CARROS; i++) {
-            container.addCarro(i + 1, 0, (i * 80) + 120, 10, 15);
-        }
-
         pack();
 
-        isRodando = true;
-        gameLoop = new Thread(this);
-        gameLoop.start();
-        for (int i = 1; i < container.getGameObjects().size(); i++) {
-            carros[i - 1] = new Thread((Runnable)container.getGameObjects().get(i));
-            carros[i - 1].start();
+        setIsRodando(true);
+        for (int i = 0; i < carros.length; i++) {
+            carros[i].start();
         }
     }
 
     public void parar() {
-        isRodando = false;
+        setIsRodando(false);
         
         try {
-            gameLoop.join();
-            for (int i = 1; i < container.getGameObjects().size(); i++) {
-                carros[i - 1].join();
+            for (int i = 0; i < carros.length; i++) {
+                carros[i].join();
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -58,23 +55,11 @@ public class GabrielParaleloFrame extends JFrame implements Runnable {
         dispose();
     }
 
-    @Override
-    public void run() {
-        while (isRodando) {
-            //container.update();
-//            update();
+    public static boolean getIsRodando() {
+        return isRodando;
+    }
 
-            try {
-                Thread.sleep(THREAD_SLEEP);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+    public static void setIsRodando(boolean rodar) {
+        isRodando = rodar;
     }
-  /*  
-    private void update() {
-        System.out.println(NUM_THREAD);
-        container.update();
-    }
-    */
 }

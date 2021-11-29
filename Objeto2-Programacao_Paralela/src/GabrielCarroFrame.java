@@ -17,7 +17,6 @@ public class GabrielCarroFrame extends JFrame {
         
         getContentPane().add(container);
 
-
         container.addFundo();
 
         for (int i = 0; i < MAX_CARROS; i++) {
