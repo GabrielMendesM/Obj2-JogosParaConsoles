@@ -39,7 +39,6 @@ public class Jogo extends JFrame {
                 POS_CHEGADA,
                 i + 1
             );
-            //carros[i] = new Carro(0, (i * 80) + 120, 20, 40, 800, i + 1);
         }
 
         panel = new ElementoPanel(carros);
