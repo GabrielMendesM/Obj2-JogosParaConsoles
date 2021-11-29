@@ -15,6 +15,7 @@ public class Carro extends Thread {
     private ImageIcon img;
 
     private boolean chegou = false;
+    private boolean acabou = false;
 
     public Carro(int posX, int posY, int velMin, int velMax, int posChegada, int id) {
         this.posX = posX;
@@ -41,16 +42,19 @@ public class Carro extends Thread {
             System.out.println(nome + " andou " + (posX - posAnterior) + "m e já percorreu " + posX + "m.");
         } else if (!chegou) {
             chegou = true;
+            Jogo.setVencedor(nome);
             System.out.println("=========================\n     "+ nome + " chegou!\n=========================");
-        } else if (chegou && posX < (posChegada + 10)) {
+        } else if (posX < (posChegada + 10)) {
             posX += velocidade;
+        } else if (!acabou && posX >= (posChegada + 10)) {
+            acabou = true;
             Jogo.parar();
         }
     }
 
     @Override
     public void run() {
-        while (Jogo.getIsRodando()) {
+        while (Jogo.isRodando()) {
             mover();
 
             try {

@@ -9,7 +9,8 @@ public class Jogo extends JFrame {
 
     private static String vencedor = null;
 
-    private static boolean isRodando;
+    private static boolean rodando;
+
     private static Carro[] carros = new Carro[MAX_CARROS];
     private static ElementoPanel panel;
 
@@ -37,45 +38,54 @@ public class Jogo extends JFrame {
         
         pack();
 
-        setIsRodando(true);
+        setRodando(true);
 
         for (int i = 0; i < carros.length; i++) {
             carros[i].start();
         }
     }
 
-    public void declararVencedor(String nome) {
+    public static void parar() {
+        if (acabou() && isRodando()) {
+            System.out.println("======================================\n     " + getVencedor().toUpperCase() + " VENCEU A CORRIDA!!!\n======================================");
+
+            setRodando(false);
+        
+            for (int i = 0; i < carros.length; i++) {
+                try {
+                    carros[i].join();
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+    
+    public static boolean isRodando() {
+        return rodando;
+    }
+
+    public static void setRodando(boolean rodar) {
+        rodando = rodar;
+    }
+
+    public static String getVencedor() {
+        return vencedor;
+    }
+
+    public static void setVencedor(String nome) {
         if (vencedor == null) {
             vencedor = nome;
         }
     }
 
-    public static void parar() {
-        
-        /*
-        setIsRodando(false);
-        
-        for (int i = 0; i < carros.length; i++) {
-            try {
-                carros[i].join();
-            } catch (InterruptedException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
+    private static boolean acabou() {
+        for (Carro c : carros) {
+            if (!c.getChegou()) {
+                return false;
             }
         }
-        */
-        System.out.println("PARAR");
-    }
-    
-    public static boolean getIsRodando() {
-        return isRodando;
-    }
-
-    public static void setIsRodando(boolean rodar) {
-        isRodando = rodar;
-    }
-
-    public static String getVencedor() {
-        return vencedor;
+        return true;
     }
 }
