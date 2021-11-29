@@ -26,7 +26,7 @@ public class Carro extends Thread {
         this.nome = "Carro_0" + id;
         this.img = new ImageIcon(getClass().getResource("./img/carro" + ThreadLocalRandom.current().nextInt(0, 10) + ".png"));
     }
-    
+
     public void draw(Graphics g) {
         img.paintIcon(panel, g, posX, posY);
         
@@ -43,7 +43,7 @@ public class Carro extends Thread {
         } else if (!chegou) {
             chegou = true;
             Jogo.setVencedor(nome);
-            System.out.println("=========================\n     "+ nome + " chegou!\n=========================");
+            System.out.println("=========================\n     " + nome + " chegou!\n=========================");
         } else if (posX < (posChegada + 10)) {
             posX += velocidade;
         } else if (!acabou && posX >= (posChegada + 10)) {

@@ -18,7 +18,6 @@ public class Jogo extends JFrame {
     private static boolean rodando;
 
     private static Carro[] carros = new Carro[MAX_CARROS];
-    private static ElementoPanel panel;
 
     public Jogo() {
         super("Objeto 2");
@@ -41,8 +40,8 @@ public class Jogo extends JFrame {
             );
         }
 
-        panel = new ElementoPanel(carros);
-        
+        ElementoPanel panel = new ElementoPanel(carros);
+
         for (int i = 0; i < carros.length; i++) {
             carros[i].setPanel(panel);
         }
@@ -63,7 +62,7 @@ public class Jogo extends JFrame {
             System.out.println("======================================\n     " + getVencedor().toUpperCase() + " VENCEU A CORRIDA!!!\n======================================");
 
             setRodando(false);
-        
+
             for (int i = 0; i < carros.length; i++) {
                 try {
                     carros[i].join();
@@ -74,7 +73,7 @@ public class Jogo extends JFrame {
             }
         }
     }
-    
+
     public static boolean isRodando() {
         return rodando;
     }

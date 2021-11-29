@@ -11,6 +11,7 @@ public class Fundo extends GameObject implements Renderizavel {
         this.img = new ImageIcon(getClass().getResource("./img/fundo.png"));
         this.c = c;
     }
+    
     @Override
     public void render(Graphics2D g2) {
         img.paintIcon(c, g2, 0, 0);

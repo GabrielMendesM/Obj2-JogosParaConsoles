@@ -36,7 +36,7 @@ public class Carro extends GameObject implements Renderizavel {
         try {
             controller.acquire();
             
-            int velocidade = ThreadLocalRandom.current().nextInt(velMin, velMax);            
+            int velocidade = ThreadLocalRandom.current().nextInt(velMin, velMax);
             if (getPosX() <= getPosChegada() && !getChegou()) {
                 int posAnterior = getPosX();
                 setPosX(getPosX() + velocidade);
@@ -44,7 +44,7 @@ public class Carro extends GameObject implements Renderizavel {
             } else if (!getChegou()) {
                 setChegou(true);
                 System.out.println("=========================\n     "+ NOME + " chegou!\n=========================");
-            } else if (getChegou() && getPosX() < (getPosChegada() + 80)) {
+            } else if (getPosX() < (getPosChegada() + 80)) {
                 setPosX(getPosX() + velocidade);
             }
         } catch (InterruptedException e) {
