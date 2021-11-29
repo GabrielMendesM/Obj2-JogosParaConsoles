@@ -6,6 +6,12 @@ import javax.swing.WindowConstants;
 
 public class Jogo extends JFrame {
     private static final int MAX_CARROS = 5;
+    private static final int POS_X_INICIAL = 0;
+    private static final int OFFSET_Y = 80;
+    private static final int DISTANCIA_Y = 120;
+    private static final int VEL_MIN = 20;
+    private static final int VEL_MAX = 40;
+    private static final int POS_CHEGADA = 800;
 
     private static String vencedor = null;
 
@@ -25,7 +31,15 @@ public class Jogo extends JFrame {
         setVisible(true);
 
         for (int i = 0; i < carros.length; i++) {
-            carros[i] = new Carro(0, (i * 80) + 120, 10, 20, 800, i + 1);
+            carros[i] = new Carro(
+                POS_X_INICIAL,
+                (i * OFFSET_Y) + DISTANCIA_Y,
+                VEL_MIN,
+                VEL_MAX,
+                POS_CHEGADA,
+                i + 1
+            );
+            //carros[i] = new Carro(0, (i * 80) + 120, 20, 40, 800, i + 1);
         }
 
         panel = new ElementoPanel(carros);
@@ -46,7 +60,7 @@ public class Jogo extends JFrame {
     }
 
     public static void parar() {
-        if (acabou() && isRodando()) {
+        if (acabou()) {
             System.out.println("======================================\n     " + getVencedor().toUpperCase() + " VENCEU A CORRIDA!!!\n======================================");
 
             setRodando(false);
